@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const Card = () => {
+export const Card = ({post}) => {
   return (
-    <div>Card</div>
+    <div>
+      {post._id}
+    </div>
   )
 }
