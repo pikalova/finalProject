@@ -1,0 +1,15 @@
+.sort__icon-down {
+ transform: rotate(180deg);
+ transition: transform 150ms ease;
+}
+
+.sort__icon-up {
+    transform: rotate(0deg);
+    transition: transform 150ms ease;
+   }
+
+.sort{
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
