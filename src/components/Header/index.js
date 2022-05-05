@@ -1,10 +1,20 @@
 import React from 'react'
 
-export const Header = ({ children }) => {
+import s from './style.module.css'
+
+export const Header = () => {
     return (
-        <div>
-            Header
-            {children}
+        <div className={s.container}>
+            <div className={s.logo}>
+                logo
+            </div>
+            <div className={s.search}>
+                <input/>
+            </div>
+            <div className={s.rest}>
+                rest button
+            </div>
+        
         </div>
     )
 }
