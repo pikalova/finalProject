@@ -124,7 +124,7 @@ export const Card = ({ post, isInFavorites, setFavorites }) => {
             Пост "{post?.author?.name}" удален из избранного!
           </Alert>
         </Snackbar>
-      )};
+      )}
     </Stack>
   );
-};
+}
