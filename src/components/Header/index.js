@@ -2,19 +2,25 @@ import React from 'react'
 
 import s from './style.module.css'
 
-export const Header = () => {
+export const Header = ({ children }) => {
+    // const handleChange = (event) => {
+    //     const {
+    //         target: {value}, 
+    //     } = event;
+
+    //     props((prevList)=> {
+    //         console.log(prevList)
+    //         return [...prevList]
+    //     })
+    // }
     return (
         <div className={s.container}>
-            <div className={s.logo}>
-                logo
-            </div>
-            <div className={s.search}>
-                <input/>
-            </div>
+                    {children}
             <div className={s.rest}>
                 rest button
             </div>
-        
+
+
         </div>
     )
 }

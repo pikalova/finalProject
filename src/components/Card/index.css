@@ -1,0 +1,38 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card:hover {
+    box-shadow: 1px 3px 6px rgba(91, 193, 83, 0.778), 0px 8px 16px rgba(10, 159, 234, 0.443);
+}
+
+.authorName {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-weight: bold;
+    color: rgba(12, 41, 82, 0.908);
+    text-shadow: 1px 3px 3px rgba(171, 245, 230, 0.593);
+}
+
+.text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-style: italic;
+    padding-top: 5px;
+}
+
+.emailCommentsFavorites {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.comments {
+    font-size: 135%;
+}

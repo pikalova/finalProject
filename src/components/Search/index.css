@@ -1,0 +1,73 @@
+/* .container {
+    position:block;
+}
+.searching {
+    width: 200px;
+    height: 2em;
+    border-radius: 15px;
+    border-color: white;
+   
+    padding: 0 1.5em;
+}
+
+
+
+.searching:placeholder {
+	color: #7b8e98;
+} */
+
+/*.srch_btn {
+    right: 600px;
+    display: absolute;
+    height: 1.2em;
+    border-radius: 1em;
+    border: 1px solid white;
+    text-transform: uppercase;
+    background: url("../../assets/svg/premium-icon-cross-mark-4225670.png") no-repeat;
+    background-size: contain;
+    width: 20px;
+} */
+
+.container {
+  width: 30%;
+  font-weight: bold;
+  font-size: 15px;
+  
+}
+
+
+
+.searching {
+  margin-top: 20px;
+  width: 100%;
+  padding: 8px 20px 8px 10%;
+  border-radius: 50px;
+  border: 1px solid #3c84ff;
+  box-shadow: 3px 19px 12px -5px rgba(246, 199, 230, 0.6);
+  
+}
+
+.searching:placeholder {
+  opacity: 1;
+}
+
+.srch_btn {
+  position: relative;
+  top: -27px;
+  right: -260px;
+  border:none;
+  border-radius: 30px;
+  background: url("../../assets/svg/premium-icon-cross-mark-4225670.png") no-repeat;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  box-shadow: #3c84ff 40px;
+
+}
+
+.srch_btn:hover {
+
+border: solid;
+border-color: #3c84ff;
+
+}

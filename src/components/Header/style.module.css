@@ -1,19 +1,13 @@
-.container{
+.container {
+    width: 100%;
+    background:linear-gradient(90deg, rgb(241, 192, 253) 9%, rgb(155, 237, 240));
+    padding: 12px 0;
     display: flex;
+    align-items: center;
     justify-content: space-around;
-    margin: 30px;
-
+    gap: 80px;
 }
 
-.logo{
-
-}
-
-.search{
-
-}
-
-.rest{
 
 
-}
+.rest {}
