@@ -9,34 +9,31 @@ import { Logo } from './components/Logo';
 import { Menu } from './components/Menu';
 import { List } from './components/List';
 import { Footer } from './components/Footer';
+import { UserAndLikes } from './components/UserAndLikes';
+import { UserAuth } from './components/UserAuth';
+import { Routes, Route } from "react-router-dom";
+
 import { useApi } from './hooks/useApi'
 
 import PostsContext from './contexts/PostsContext';
+import AllPostsContext from './contexts/AllPostsContext';
+import UserContext from './contexts/UserContext';
 
 import Pagination from 'rc-pagination';
 
 function App() {
   const api = useApi();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]); // посты
   const [postsOnPage, setPostsOnPage] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const [userValue, setUserValue] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');// поиск/запрос на бэк по постам
   const [myUser, setMyUser] = useState();
 
 
-  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
+  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []); // избранное
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setUserValue(value);
-
-  };
-
-  const filterPostList = (userValue) => {
-    const filteredList = posts?.filter(({ title }) => title.includes(userValue));
-    setPosts(filteredList);
+  const handleChange = (value) => {
+    setSearchQuery(value);
   };
 
 
@@ -44,6 +41,12 @@ function App() {
     api.getData('posts')
       .then((value) => {
         setPosts(value);
+      })
+      .catch((err) => console.log(err))
+
+    api.getData('users/me')
+      .then((value) => {
+        setMyUser(value);
       })
       .catch((err) => console.log(err))
   }, [])
@@ -54,18 +57,21 @@ function App() {
   }, [pageNumber, posts]);
 
   useEffect(() => {
-    filterPostList(userValue);
-    api.searchPost(userValue)
-  }, [userValue]);
+    api.searchPost(searchQuery).then((list) => setPosts(list))
+  }, [searchQuery]);
+
+
 
   return (
     <div className="App">
-      <div>
-        <Header>
-          <Logo />
-          <Search handleChange={handleChange} />
-        </Header>
-      </div>
+
+      <Header>
+        <Logo />
+        <Search handleChange={handleChange} />
+        <div>
+          <UserAndLikes favorites={favorites} userName={myUser?.name} />
+        </div>
+      </Header>
       <AllPostsContext.Provider value={{ posts, setPosts }}>
         <PostsContext.Provider value={{ postsOnPage, setPostsOnPage }}>
           <UserContext.Provider value={{ myUser, setMyUser }}>
@@ -86,6 +92,8 @@ function App() {
         </PostsContext.Provider>
       </AllPostsContext.Provider>
       <Footer />
+
+
     </div>
 
   );
