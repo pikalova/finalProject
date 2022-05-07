@@ -3,6 +3,7 @@ import { useApi } from '../../hooks/useApi'
 import './index.css';
 import picture from '../icon_comments.png';
 import DayJS from 'react-dayjs';
+import { Link } from "react-router-dom";
 
 import { Card as CardMUI } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
@@ -76,27 +77,28 @@ export const Card = ({ post, isInFavorites, setFavorites }) => {
     <Stack>
       <CardMUI sx={{ width: 350, height: 480, background: 'rgba(251, 247, 250, 0.97)' }} className='card'>
         <CardContent>
-          <Typography gutterBottom variant="h6">
-            <div className='authorName'>
-              <Avatar src={post.author?.avatar} />
-              {post.author?.name}
-            </div>
-          </Typography>
-          <CardMedia
-            component="img"
-            height="150"
-            src={post?.image}
-            alt="img"
-          />
-          <Typography gutterBottom variant="h6">
-            <div style={{ paddingTop: '15px' }}>{post?.title}</div>
-          </Typography>
-          <Typography gutterBottom variant="h9" color="text.secondary" className='text'>
-            {post?.text}
-          </Typography>
-          <Button size="small">{post.author?.email}</Button>
+          <Link to={`posts/${post._id}`} style={{ textDecoration: 'none' }}>
+            <Typography gutterBottom variant="h6">
+              <div className='authorName'>
+                <Avatar src={post.author?.avatar} />
+                {post.author?.name}
+              </div>
+            </Typography>
+            <CardMedia
+              component="img"
+              height="150"
+              src={post?.image}
+              alt="img"
+            />
+            <Typography gutterBottom variant="h6">
+              <div className='title'>{post?.title}</div>
+            </Typography>
+            <Typography gutterBottom variant="h9" color="text.secondary" className='text'>
+              {post?.text}
+            </Typography>
+            <Button size="small">{post.author?.email}</Button>
+          </Link>
         </CardContent>
-
         <CardActions component="div">
           <img src={picture} alt="picture" height='27' /><div className='comments'>{post.comments.length}</div>
           {isInFavorites ? (
@@ -110,7 +112,6 @@ export const Card = ({ post, isInFavorites, setFavorites }) => {
           )}
           <DayJS format="DD.MM.YYYY" >{post?.created_at}</DayJS>
         </CardActions>
-
       </CardMUI >
       {isInFavorites ? (
         <Snackbar open={open} autoHideDuration={1500} onClose={handleClose}>

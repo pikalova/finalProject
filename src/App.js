@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Routes, Route } from "react-router-dom";
+import { useApi } from './hooks/useApi'
 
 import './App.css';
 import './assets/pagination.css';
 
-import { Header } from './components/Header';
-import { Search } from './components/Search';
-import { Menu } from './components/Menu';
-import { List } from './components/List';
+import { CreatePost } from './components/CreatePost/index.js';
 import { Footer } from './components/Footer';
+import { Header } from './components/Header';
+import { List } from './components/List';
+import { Menu } from './components/Menu';
+import { PostInfo } from './components/PostInfo';
+import { Search } from './components/Search';
 import { UserAuth } from './components/UserAuth';
-
-import { useApi } from './hooks/useApi'
 
 import PostsContext from './contexts/PostsContext';
 import AllPostsContext from './contexts/AllPostsContext';
@@ -28,8 +29,6 @@ function App() {
 
 
   const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
-
-
 
   useEffect(() => {
     api.getData('posts')
@@ -48,6 +47,7 @@ function App() {
     let data = posts?.slice((pageNumber - 1) * 12, pageNumber * 12);
     setPostsOnPage(data);
   }, [pageNumber, posts]);
+
   return (
     <div className="App">
       <Header>
@@ -68,6 +68,9 @@ function App() {
                 )
               } />
               <Route path="auth" element={<UserAuth />} />
+              <Route path="about" element={<div>About работает проверка</div>} />
+              <Route path="posts/create" element={<CreatePost changePost={setPosts}/>} />
+              <Route path="posts/:itemId" element={<PostInfo changePost={setPosts}/>} />
             </Routes>
           </UserContext.Provider>
         </PostsContext.Provider>
