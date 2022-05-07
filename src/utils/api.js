@@ -88,7 +88,7 @@ class Api {
         return result;
     }
 
-    async editUserData( data, token){
+    async editUserData(data, token){
         const useToken = this.token || token;
         const responce = await fetch(`${this._url}/users/me`,{
             method: "PATCH",
@@ -108,6 +108,20 @@ class Api {
         headers: {
             authorization: `Bearer ${this._token}`
         }
+    });
+    const result = await onResponce(responce);
+    return result;
+   }
+
+   async editUserImg (avatar, token){
+    const useToken = this.token || token;
+    const responce = await fetch(`${this._url}/users/me/avatar`,{
+        method: "PATCH",
+        headers: {
+            authorization : `Bearer ${useToken}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(avatar),
     });
     const result = await onResponce(responce);
     return result;

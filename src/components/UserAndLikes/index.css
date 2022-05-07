@@ -1,3 +1,11 @@
 .userContainer{
     min-width: 300px;
+    font-family:Comic Sans MS;
+    color: blueviolet;
+    text-shadow: 1px 1px 2px rgb(255, 255, 255), 0 0 1em rgb(255, 0, 242);
+}
+
+.logOut{
+    position: absolute;
+    right: -10px;
 }
