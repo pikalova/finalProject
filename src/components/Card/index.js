@@ -79,7 +79,7 @@ export const Card = ({ post, isInFavorites, setFavorites }) => {
           <Typography gutterBottom variant="h6">
             <div className='authorName'>
               <Avatar src={post.author?.avatar} />
-              {post.author?.name}
+              {post.author?.name} 
             </div>
           </Typography>
           <CardMedia
@@ -124,7 +124,7 @@ export const Card = ({ post, isInFavorites, setFavorites }) => {
             Пост "{post?.author?.name}" удален из избранного!
           </Alert>
         </Snackbar>
-      )}
+      )};
     </Stack>
   );
-}
+};

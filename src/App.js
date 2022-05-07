@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Routes, Route } from "react-router-dom";
 
 import './App.css';
-import './assets/pagination.css';
+import './assets/index.less';
 
 import { Header } from './components/Header';
 import { Search } from './components/Search';
+import { Logo } from './components/Logo';
 import { Menu } from './components/Menu';
 import { List } from './components/List';
 import { Footer } from './components/Footer';
+import { UserAndLikes } from './components/UserAndLikes';
 import { UserAuth } from './components/UserAuth';
+import { Routes, Route } from "react-router-dom";
 
 import { useApi } from './hooks/useApi'
 
@@ -21,14 +23,18 @@ import Pagination from 'rc-pagination';
 
 function App() {
   const api = useApi();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]); // посты
   const [postsOnPage, setPostsOnPage] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');// поиск/запрос на бэк по постам
   const [myUser, setMyUser] = useState();
 
 
-  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
+  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []); // избранное
 
+  const handleChange = (value) => {
+    setSearchQuery(value);
+  };
 
 
   useEffect(() => {
@@ -37,6 +43,7 @@ function App() {
         setPosts(value);
       })
       .catch((err) => console.log(err))
+
     api.getData('users/me')
       .then((value) => {
         setMyUser(value);
@@ -48,10 +55,22 @@ function App() {
     let data = posts?.slice((pageNumber - 1) * 12, pageNumber * 12);
     setPostsOnPage(data);
   }, [pageNumber, posts]);
+
+  useEffect(() => {
+    api.searchPost(searchQuery).then((list) => setPosts(list))
+  }, [searchQuery]);
+
+
+
   return (
     <div className="App">
+
       <Header>
-        <Search />
+        <Logo />
+        <Search handleChange={handleChange} />
+        <div>
+          <UserAndLikes favorites={favorites} userName={myUser?.name} />
+        </div>
       </Header>
       <AllPostsContext.Provider value={{ posts, setPosts }}>
         <PostsContext.Provider value={{ postsOnPage, setPostsOnPage }}>
@@ -76,6 +95,7 @@ function App() {
 
 
     </div>
+
   );
 }
 

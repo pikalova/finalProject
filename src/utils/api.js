@@ -64,6 +64,17 @@ class Api {
         const result = await onResponce(responce);
         return result;
     }
+
+   // https://api.react-learning.ru/posts/search/?query=<строка фильтрации по title>
+   async searchPost(searchQuery){
+    const responce = await fetch(`${this._url}/posts/search/?query=${searchQuery}`, {
+        headers: {
+            authorization: `Bearer ${this._token}`
+        }
+    });
+    const result = await onResponce(responce);
+    return result;
+   }
 }
 
 export default Api;
