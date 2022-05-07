@@ -64,6 +64,32 @@ class Api {
         const result = await onResponce(responce);
         return result;
     }
+
+    async auth(type, data){
+        const responce = await fetch(`${this._url}/${type}`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
+    async editUserData( data, token){
+        const useToken = this.token || token;
+        const responce = await fetch(`${this._url}/users/me`,{
+            method: "PATCH",
+            headers: {
+                authorization : `Bearer ${useToken}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
 }
 
 export default Api;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 import './App.css';
 import './assets/pagination.css';
@@ -21,35 +21,56 @@ import Pagination from 'rc-pagination';
 
 function App() {
   const api = useApi();
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [postsOnPage, setPostsOnPage] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [myUser, setMyUser] = useState();
-
+const [token, setToken] = useState(localStorage.getItem['token']);
 
   const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
 
-
-
   useEffect(() => {
-    api.getData('posts')
-      .then((value) => {
-        setPosts(value);
-      })
-      .catch((err) => console.log(err))
-    api.getData('users/me')
-      .then((value) => {
-        setMyUser(value);
-      })
-      .catch((err) => console.log(err))
+    const token1 = localStorage.getItem['token'];
+    console.log(localStorage.getItem['token'])
+    // if (token1) {
+    //   api.getData('posts')
+    //     .then((value) => {
+    //       setPosts(value);
+    //     })
+    //     .catch((err) => console.log(err))
+    //   api.getData('users/me')
+    //     .then((value) => {
+    //       setMyUser(value);
+    //     })
+    //     .catch((err) => console.log(err))
+    // } else {
+    //   navigate('auth')
+    // }
   }, [])
 
   useEffect(() => {
     let data = posts?.slice((pageNumber - 1) * 12, pageNumber * 12);
     setPostsOnPage(data);
   }, [pageNumber, posts]);
+
+  useEffect(() => {
+    console.log(localStorage.getItem['token'])
+    console.log(token)
+    // api.getData('users/me')
+    //     .then((value) => {
+    //         setMyUser(value);
+    //     })
+    //     .catch((err) => console.log(err))
+    // api.getData('posts')
+    //     .then((value) => {
+    //         setPosts(value);
+    //     })
+    //     .catch((err) => console.log(err))
+}, [token])
+
   return (
-    <div className="App">
+    <div className="appContainer">
       <Header>
         <Search />
       </Header>
@@ -67,7 +88,7 @@ function App() {
                   </div>
                 )
               } />
-              <Route path="auth" element={<UserAuth />} />
+              <Route path="auth" element={<UserAuth setToken={setToken}/>} />
             </Routes>
           </UserContext.Provider>
         </PostsContext.Provider>

@@ -1,11 +1,13 @@
 import React, {useState} from 'react'
 import { Grid, TextField, Button, Typography } from '@mui/material';
-
-import api from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
+
+import './index.css';
+import { useApi } from '../../hooks/useApi';
 
 export const UserAuth = ({ setToken}) => {
     const navigate = useNavigate();
+    const api = useApi();
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [error, setError] = useState('');

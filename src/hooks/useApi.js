@@ -1,10 +1,12 @@
 import Api from "../utils/api";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const useApi = () => {
+    const {readLS} = useLocalStorage()
 
     const config = {
         url: "https://api.react-learning.ru",
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjVhNmE5NjBjZGQ3ZDNmZDUyZjgzN2EiLCJpYXQiOjE2NTAwOTI5NTEsImV4cCI6MTY4MTYyODk1MX0.M8ch7pvKTnwS7F_CbBiwpL3lVr51B28yMWLzTGz8A4U"
+        token: readLS('token')
     }
 
     return new Api(config);
