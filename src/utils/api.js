@@ -43,8 +43,8 @@ class Api {
         return result;
     }
 
-    async deleteLikes(postId) {
-        const responce = await fetch(`${this._url}/posts/likes/${postId}`, {
+    async deleteLikes(itemId) {
+        const responce = await fetch(`${this._url}/posts/likes/${itemId}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${this._token}`,
@@ -54,8 +54,19 @@ class Api {
         return result;
     }
 
-    async deletePost(postId) {
-        const responce = await fetch(`${this._url}/posts/${postId}`, {
+    async getPosts(itemId) {
+        const requestURL = itemId ? `${this._url}/posts/${itemId}` : `${this._url}/posts`
+        const responce = await fetch(requestURL, {
+            headers: {
+                authorization: `Bearer ${this._token}`
+            }
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
+    async deletePost(itemId) {
+        const responce = await fetch(`${this._url}/posts/${itemId}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this._token}`
@@ -104,3 +115,4 @@ class Api {
 }
 
 export default Api;
+
