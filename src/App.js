@@ -24,6 +24,7 @@ import UserContext from './contexts/UserContext';
 
 import Pagination from 'rc-pagination';
 import { padding } from '@mui/system';
+import { EditUser } from './components/EditUser';
 
 function App() {
   const api = useApi();
@@ -99,6 +100,7 @@ function App() {
               <Route path="posts/:itemId" element={<PostInfo changePost={setPosts} />} />
               <Route path="auth" element={<UserAuth setUserToken={setUserToken} />} />
               <Route path="createuser" element={<CreateUser setUserToken={setUserToken} />} />
+              <Route path='user/edit' element={<EditUser />}/>
             </Routes>
           </UserContext.Provider>
         </PostsContext.Provider>
