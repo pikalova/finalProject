@@ -1,0 +1,37 @@
+
+
+.container {
+  width: 300px;
+  font-weight: bold;
+  font-size: 15px;
+  
+}
+
+
+
+.searching {
+
+  margin-top: 3px;
+  width: 100%;
+  padding: 8px 20px 8px 10%;
+  border-radius: 50px;
+  border: 1px solid #3c84ff;
+  box-shadow: 3px 19px 12px -5px rgba(246, 199, 230, 0.6);
+  
+}
+
+
+.srch_btn {
+  position:absolute;
+  top: 43px;
+  right: 45%;
+  border:none;
+  border-radius: 30px;
+  background: url("../../assets/svg/premium-icon-cross-mark-4225670.png") no-repeat;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  box-shadow: #3c84ff 40px;
+
+}
+
