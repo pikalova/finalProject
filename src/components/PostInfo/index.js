@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import './indexInfo.css';
 import { useApi } from '../../hooks/useApi';
-import { Grid, Button } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
+import { Card as CardMUI, Button } from '@mui/material';
+import CardContent from '@mui/material/CardContent';
+import UserContext from '../../contexts/UserContext';
+import DayJS from 'react-dayjs';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 export const PostInfo = ({ changePost }) => {
-
     const api = useApi();
-
     const [post, setPost] = useState();
     const navigate = useNavigate();
     const params = useParams();
-
     const handleClik = () => {
         api.deletePost(params.itemId)
             .then((data) => {
@@ -22,28 +25,39 @@ export const PostInfo = ({ changePost }) => {
             })
             .catch((err) => alert(err));
     }
-
     useEffect(() => {
         api.getPosts(params.itemId)
             .then((data) => setPost(data))
             .catch((err) => alert(err));
     }, []);
 
+    //для удаления поста
+    const { myUser, setMyUser } = useContext(UserContext);
+    const button = <Button onClick={handleClik} variant="contained" color='primary' size='small'>Удалить пост</Button>
+
     return (
-        <>
-            {post && <Grid container flexDirection='column' alignItems='center'>
-                <h1> Автор: {post.author?.name} </h1>
-                <img src={post?.image} width="400" alt="картинка" />
-                <h2> {post?.title} </h2>
-                <Grid item xs={1}>
-                    <h3> Комментарии: {post?.comments.map(data => (data.text + ', '))} </h3>
-                </Grid>
-            </Grid>
-            }
-            <Grid container flexDirection='column' alignItems='center'>
-                <Button onClick={handleClik} variant="contained" color='primary' size='small'>Удалить пост</Button>
-                {/* <pre>{JSON.stringify(post, null, 4)}</pre> */}
-            </Grid>
-        </>
+        <form className='form'>
+            <div className='formAutor'>
+                <Avatar src={post?.author.avatar} /> <h1>{post?.author.name}</h1>
+            </div>
+            <h2> {post?.title} </h2>
+            <CardMUI className='cardInfo' sx={{ width: '1200px', height: 'auto', background: 'rgba(248, 240, 241, 0.987)' }}>
+                <CardContent className='cardImg'>
+                    <img src={post?.image} width="500" alt="картинка" />
+                </CardContent>
+                <h4> {post?.text} </h4>
+            </CardMUI >
+            <div>
+                <br />
+                <FavoriteBorderOutlinedIcon />
+                {post?.likes.length}
+                <br />
+                Комментарии:
+                {post?.comments.map(data => (data.text + ', '))}
+                <br />
+                Дата создания: <DayJS format="DD.MM.YYYY" >{post?.created_at}</DayJS>
+            </div>
+            {myUser?.name == post?.author.name && button}
+        </form >
     )
 };

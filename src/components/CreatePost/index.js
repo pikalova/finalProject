@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useApi } from '../../hooks/useApi';
 import { useNavigate } from 'react-router-dom';
-
 import { Grid } from '@mui/material';
-
-import { TextField, Button, Typography } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 
 export const CreatePost = ({ changePost }) => {
     const navigate = useNavigate();
