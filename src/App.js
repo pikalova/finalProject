@@ -21,22 +21,24 @@ function App() {
   const [postsOnPage, setPostsOnPage] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [userValue, setUserValue] = useState('');
+  const [myUser, setMyUser] = useState();
 
 
   const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
 
   const handleChange = (event) => {
     const {
-        target: { value },
+      target: { value },
     } = event;
     setUserValue(value);
 
-};
+  };
 
-const filterPostList = (userValue) => {
-  const filteredList = posts?.filter(({ title }) => title.includes(userValue));
-  setPosts(filteredList);
-};
+  const filterPostList = (userValue) => {
+    const filteredList = posts?.filter(({ title }) => title.includes(userValue));
+    setPosts(filteredList);
+  };
+
 
   useEffect(() => {
     api.getData('posts')
@@ -54,23 +56,36 @@ const filterPostList = (userValue) => {
   useEffect(() => {
     filterPostList(userValue);
     api.searchPost(userValue)
-}, [userValue]);
+  }, [userValue]);
 
   return (
     <div className="App">
       <div>
         <Header>
           <Logo />
-          <Search handleChange={handleChange}  />
+          <Search handleChange={handleChange} />
         </Header>
       </div>
-      <PostsContext.Provider value={{ postsOnPage, setPostsOnPage }}>
-        <Menu />
-        <List favorites={favorites} setFavorites={setFavorites} />
-        <Pagination onChange={(page) => { setPageNumber(page) }} current={pageNumber} pageSize={12} showTotal={total => `Total ${total} items`} total={posts.length} />
-      </PostsContext.Provider>
+      <AllPostsContext.Provider value={{ posts, setPosts }}>
+        <PostsContext.Provider value={{ postsOnPage, setPostsOnPage }}>
+          <UserContext.Provider value={{ myUser, setMyUser }}>
+            <Routes>
+              <Route path="/" element={
+                (
+                  <div>
+                    <Menu />
+                    <Pagination onChange={(page) => { setPageNumber(page) }} current={pageNumber} pageSize={12} showTotal={total => `Total ${total} items`} total={posts.length} />
+                    <List favorites={favorites} setFavorites={setFavorites} />
+                    <Pagination onChange={(page) => { setPageNumber(page) }} current={pageNumber} pageSize={12} showTotal={total => `Total ${total} items`} total={posts.length} />
+                  </div>
+                )
+              } />
+              <Route path="auth" element={<UserAuth />} />
+            </Routes>
+          </UserContext.Provider>
+        </PostsContext.Provider>
+      </AllPostsContext.Provider>
       <Footer />
-
     </div>
 
   );
