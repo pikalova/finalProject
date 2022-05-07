@@ -13,11 +13,15 @@ export const useLocalStorage = () => {
         localStorage.setItem(key, JSON.stringify(storage));
     };
 
+    const clearLS = (key) => {
+        localStorage.removeItem(key)
+    }
+
     const removeLS = (key, value) => {
         const storage = readLS(key);
         const filteredStorage = storage.filter((itemID) => value !== itemID);
         localStorage.setItem(key, JSON.stringify(filteredStorage));
     };
 
-    return { readLS, writeLS, removeLS };
+    return { readLS, writeLS, removeLS, clearLS };
 };

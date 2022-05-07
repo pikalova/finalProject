@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './index.css';
 import { useApi } from '../../hooks/useApi';
 
-export const UserAuth = ({ setToken}) => {
+export const UserAuth = ({ setUserToken}) => {
     const navigate = useNavigate();
     const api = useApi();
     const [userEmail, setUserEmail] = useState('');
@@ -16,7 +16,7 @@ export const UserAuth = ({ setToken}) => {
         api.auth('signin', {email: userEmail, password: userPassword})
         .then((data) => {
             localStorage.setItem('token', data.token);
-            setToken(data.token);
+            setUserToken(data.token);
             navigate('/')
         })
         .catch((err) => {

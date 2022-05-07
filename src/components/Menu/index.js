@@ -59,7 +59,6 @@ export const Menu = () => {
 
   const favoritePosts = () => {
     setSortDate('down');
-    console.log(allPostsLocal)
     setPosts((prevState) => {
       let newSort = sortByFavorites(prevState)
       setPostsOnPage(newSort?.slice(0, 12));
