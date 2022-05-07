@@ -1,6 +1,6 @@
 
 const onResponce = (res) => {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+    return res.ok ? res.json() : Promise.reject(`${res.status}`)
 }
 
 class Api {
@@ -75,6 +75,43 @@ class Api {
         const result = await onResponce(responce);
         return result;
     }
+
+    async auth(type, data){
+        const responce = await fetch(`${this._url}/${type}`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
+    async editUserData( data, token){
+        const useToken = this.token || token;
+        const responce = await fetch(`${this._url}/users/me`,{
+            method: "PATCH",
+            headers: {
+                authorization : `Bearer ${useToken}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
+   // https://api.react-learning.ru/posts/search/?query=<строка фильтрации по title>
+   async searchPost(searchQuery){
+    const responce = await fetch(`${this._url}/posts/search/?query=${searchQuery}`, {
+        headers: {
+            authorization: `Bearer ${this._token}`
+        }
+    });
+    const result = await onResponce(responce);
+    return result;
+   }
 }
 
 export default Api;

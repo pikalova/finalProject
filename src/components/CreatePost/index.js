@@ -1,8 +1,10 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useApi } from '../../hooks/useApi';
 import { useNavigate } from 'react-router-dom';
 
 import { Grid } from '@mui/material';
+
+import { TextField, Button, Typography } from '@mui/material';
 
 export const CreatePost = ({ changePost }) => {
     const navigate = useNavigate();
@@ -26,18 +28,20 @@ export const CreatePost = ({ changePost }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Grid container flexDirection='column' alignItems='center' spacing='10'>
+            <Grid container flexDirection='column' alignItems='center' spacing='20'>
                 <Grid item>
-                    <input name='title' placeholder='title, строка (обязательное)' />
+                    <TextField fullWidth label='Название (обязательное)' name='title' variant='outlined' />
                 </Grid>
                 <Grid item>
-                    <input name='text' placeholder='text, строка (обязательное)' />
+                    <TextField fullWidth label='Описание (обязательное)' name='text' variant='outlined' />
                 </Grid>
                 <Grid item>
-                    <input name='image' placeholder='image, строка' />
+                    <TextField fullWidth label='Картинка' name='image' variant='outlined' />
                 </Grid>
                 <Grid item>
-                    <button>Создать пост</button>
+                    <Button type='submit' variant='contained' color='secondary' size='small'>
+                        Добавить товар
+                    </Button>
                 </Grid>
             </Grid>
         </form >

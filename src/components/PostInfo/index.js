@@ -29,29 +29,17 @@ export const PostInfo = ({ changePost }) => {
             .catch((err) => alert(err));
     }, []);
 
-
     return (
         <>
-            {post && <Grid container spacing={1} flexDirection='column' alignItems='center'>
-                <Grid item xs={8}>
-                    <h1> Автор: {post.author?.name} </h1>
-                </Grid>
-                <Grid item xs={8}>
-                    <img
-                        src={post?.image}
-                        width="400"
-                        alt="картинка"
-                    />
-                </Grid>
-                <Grid item xs={8}>
-                    <h2> Заголовок: {post?.title} </h2>
-                </Grid>
-                <Grid item xs={8}>
-                    Комментарии: {post?.comments.map(data => (data.text + ', '))}
+            {post && <Grid container flexDirection='column' alignItems='center'>
+                <h1> Автор: {post.author?.name} </h1>
+                <img src={post?.image} width="400" alt="картинка" />
+                <h2> {post?.title} </h2>
+                <Grid item xs={1}>
+                    <h3> Комментарии: {post?.comments.map(data => (data.text + ', '))} </h3>
                 </Grid>
             </Grid>
             }
-            < br />
             <Grid container flexDirection='column' alignItems='center'>
                 <Button onClick={handleClik} variant="contained" color='primary' size='small'>Удалить пост</Button>
                 {/* <pre>{JSON.stringify(post, null, 4)}</pre> */}

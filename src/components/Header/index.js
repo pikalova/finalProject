@@ -1,23 +1,11 @@
 import React from 'react'
-//import IconButton from '@mui/material/IconButton';
-import { useNavigate } from 'react-router-dom';
+import s from './style.module.css'
 
 export const Header = ({ children }) => {
 
-    const navigate = useNavigate()
-    const navigatToCreatePage = () => {
-        navigate('posts/create')
-    };
-
     return (
-        <div>
-            Header
+        <div className={s.container}>
             {children}
-
-            {/* <IconButton onClick={navigatToCreatePage} >
-                Создать пост
-            </IconButton> */}
-
         </div>
     )
 }

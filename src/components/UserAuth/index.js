@@ -1,11 +1,13 @@
 import React, {useState} from 'react'
 import { Grid, TextField, Button, Typography } from '@mui/material';
-
-import api from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 
-export const UserAuth = ({ setToken}) => {
+import './index.css';
+import { useApi } from '../../hooks/useApi';
+
+export const UserAuth = ({ setUserToken}) => {
     const navigate = useNavigate();
+    const api = useApi();
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [error, setError] = useState('');
@@ -14,7 +16,7 @@ export const UserAuth = ({ setToken}) => {
         api.auth('signin', {email: userEmail, password: userPassword})
         .then((data) => {
             localStorage.setItem('token', data.token);
-            setToken(data.token);
+            setUserToken(data.token);
             navigate('/')
         })
         .catch((err) => {
