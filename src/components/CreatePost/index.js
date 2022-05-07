@@ -40,7 +40,7 @@ export const CreatePost = ({ changePost }) => {
                 </Grid>
                 <Grid item>
                     <Button type='submit' variant='contained' color='secondary' size='small'>
-                        Добавить товар
+                        Добавить пост
                     </Button>
                 </Grid>
             </Grid>
