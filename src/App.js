@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import './App.css';
-import './assets/index.less';
+import './assets/pagination.css';
 
 import { Header } from './components/Header';
 import { Search } from './components/Search';
@@ -11,9 +12,10 @@ import { List } from './components/List';
 import { Footer } from './components/Footer';
 import { UserAndLikes } from './components/UserAndLikes';
 import { UserAuth } from './components/UserAuth';
-import { Routes, Route } from "react-router-dom";
+import { CreateUser } from './components/CreateUser';
 
 import { useApi } from './hooks/useApi'
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 import PostsContext from './contexts/PostsContext';
 import AllPostsContext from './contexts/AllPostsContext';
@@ -23,70 +25,72 @@ import Pagination from 'rc-pagination';
 
 function App() {
   const api = useApi();
-  const [posts, setPosts] = useState([]); // посты
+  const navigate = useNavigate();
+  const { readLS, writeLS, clearLS } = useLocalStorage();
+  const [posts, setPosts] = useState([]);
   const [postsOnPage, setPostsOnPage] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');// поиск/запрос на бэк по постам
   const [myUser, setMyUser] = useState();
+  const [userToken, setUserToken] = useState(readLS('token'));
 
-
-  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []); // избранное
-
-  const handleChange = (value) => {
-    setSearchQuery(value);
-  };
-
+  const [favorites, setFavorites] = useState(readLS('favorites') || []); // избранное
 
   useEffect(() => {
-    api.getData('posts')
-      .then((value) => {
-        setPosts(value);
-      })
-      .catch((err) => console.log(err))
-
-    api.getData('users/me')
-      .then((value) => {
-        setMyUser(value);
-      })
-      .catch((err) => console.log(err))
-  }, [])
+    if (userToken) {
+      setUserToken(userToken);
+      api.getData('posts')
+        .then((value) => {
+          setPosts(value);
+          api.getData('users/me')
+            .then((user) => {
+              setMyUser(user);
+              clearLS('favorites')
+              value.map((item) => {if (item.likes.includes(user._id)) writeLS('favorites', item._id)});
+            })
+            .catch((err) => console.log(err))  
+          })
+        .catch((err) => console.log(err))
+    } else {
+      navigate('auth')
+    }
+  }, [userToken])
 
   useEffect(() => {
     let data = posts?.slice((pageNumber - 1) * 12, pageNumber * 12);
     setPostsOnPage(data);
   }, [pageNumber, posts]);
 
+
   useEffect(() => {
-    api.searchPost(searchQuery).then((list) => setPosts(list))
+    api.searchPost(searchQuery)
+      .then((list) => setPosts(list))
+      .catch((err) => console.log(err))
   }, [searchQuery]);
 
-
-
   return (
-    <div className="App">
-
+    <div className="appContainer">
+      <AllPostsContext.Provider value={{ posts, setPosts }}>
+        <PostsContext.Provider value={{ postsOnPage, setPostsOnPage }}>
+          <UserContext.Provider value={{ myUser, setMyUser }}>
       <Header>
         <Logo />
-        <Search handleChange={handleChange} />
+        <Search handleChange={setSearchQuery} />
         <div>
           <UserAndLikes favorites={favorites} userName={myUser?.name} />
         </div>
       </Header>
-      <AllPostsContext.Provider value={{ posts, setPosts }}>
-        <PostsContext.Provider value={{ postsOnPage, setPostsOnPage }}>
-          <UserContext.Provider value={{ myUser, setMyUser }}>
             <Routes>
               <Route path="/" element={
-                (
-                  <div>
-                    <Menu />
-                    <Pagination onChange={(page) => { setPageNumber(page) }} current={pageNumber} pageSize={12} showTotal={total => `Total ${total} items`} total={posts.length} />
-                    <List favorites={favorites} setFavorites={setFavorites} />
-                    <Pagination onChange={(page) => { setPageNumber(page) }} current={pageNumber} pageSize={12} showTotal={total => `Total ${total} items`} total={posts.length} />
-                  </div>
-                )
+                <div>
+                  <Menu />
+                  <Pagination onChange={(page) => { setPageNumber(page) }} current={pageNumber} pageSize={12} showTotal={total => `Total ${total} items`} total={posts.length} />
+                  <List favorites={favorites} setFavorites={setFavorites} />
+                  <Pagination onChange={(page) => { setPageNumber(page) }} current={pageNumber} pageSize={12} showTotal={total => `Total ${total} items`} total={posts.length} />
+                </div>
               } />
-              <Route path="auth" element={<UserAuth />} />
+              <Route path="auth" element={<UserAuth setUserToken={setUserToken} />} />
+              <Route path="createuser" element={<CreateUser setUserToken={setUserToken} />} />
             </Routes>
           </UserContext.Provider>
         </PostsContext.Provider>

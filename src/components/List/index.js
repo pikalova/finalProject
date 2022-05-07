@@ -12,7 +12,7 @@ export const List = ({favorites, setFavorites}) => {
         <Card
           key={item._id}
           post={item}
-          isInFavorites={favorites.includes(item._id)}
+          isInFavorites={favorites?.includes(item._id)}
           setFavorites={setFavorites}
         />
       ))}
