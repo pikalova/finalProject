@@ -1,4 +1,5 @@
 .form {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,9 +14,28 @@
 }
 
 .cardInfo {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     justify-content: flex-start;
+}
+
+.card__about{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+   min-height: 300px;
+    width: 100%;
+}
+
+.card__author{
+    position: absolute;
+    top:0;
+    right: 0;
+    display: flex;
+    align-content: flex-end;
+    justify-content: flex-end;
+    width: 100%;
 }

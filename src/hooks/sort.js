@@ -1,6 +1,6 @@
 export const sort = () => {
     const sortByDatehook = (sortDate, prevState) => {
-        let newSort = prevState.sort((item1, item2) => {
+        let newSort = prevState?.sort((item1, item2) => {
             if (sortDate === 'up') {
                 if (item1.created_at > item2.created_at) {
                     return 1;
@@ -50,7 +50,7 @@ export const sort = () => {
         return newSort
     }
 
-    const sortByFavorites = (prevState) => prevState.filter((item) => localStorage.getItem('favorites').includes(item._id));
+    const sortByFavorites = (prevState) => prevState.filter((item) => localStorage.getItem('favorites')?.includes(item._id));
     
     const sortByMyPosts = (prevState, myUser) => prevState.filter((item) => item.author._id === myUser._id);
 
