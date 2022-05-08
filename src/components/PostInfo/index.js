@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './indexInfo.css';
 import { useApi } from '../../hooks/useApi';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
-import { Card as CardMUI, Button } from '@mui/material';
+import { Card as CardMUI, Button, CardHeader } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import UserContext from '../../contexts/UserContext';
 import DayJS from 'react-dayjs';
@@ -36,28 +36,44 @@ export const PostInfo = ({ changePost }) => {
     const button = <Button onClick={handleClik} variant="contained" color='primary' size='small'>Удалить пост</Button>
 
     return (
-        <form className='form'>
-            <div className='formAutor'>
-                <Avatar src={post?.author.avatar} /> <h1>{post?.author.name}</h1>
-            </div>
-            <h2> {post?.title} </h2>
-            <CardMUI className='cardInfo' sx={{ width: '1200px', height: 'auto', background: 'rgba(248, 240, 241, 0.987)' }}>
-                <CardContent className='cardImg'>
-                    <img src={post?.image} width="500" alt="картинка" />
-                </CardContent>
-                <h4> {post?.text} </h4>
-            </CardMUI >
-            <div>
-                <br />
-                <FavoriteBorderOutlinedIcon />
-                {post?.likes.length}
-                <br />
-                Комментарии:
-                {post?.comments.map(data => (data.text + ', '))}
-                <br />
-                Дата создания: <DayJS format="DD.MM.YYYY" >{post?.created_at}</DayJS>
-            </div>
-            {myUser?.name == post?.author.name && button}
-        </form >
+        <div>
+            <Link to='/'><Button variant="contained" color='primary' size='small'>Назад</Button></Link>
+            <form className='form'>
+                {/* <div className='formAutor'>
+                    <Avatar src={post?.author.avatar} /> <h1>{post?.author.name}</h1>
+                </div> */}
+                <h2> {post?.title} </h2>
+                <CardMUI className='cardInfo' sx={{ width: '1200px', height: 'auto', background: 'rgba(248, 240, 241, 0.987)' }}>
+                    <CardContent className='cardImg'>
+                        <img src={post?.image} width="500" alt="картинка" />
+                    </CardContent>
+                    <div class='card__about'>
+                        <div class='card__author'>
+
+                    <CardHeader
+                        avatar={<Avatar
+                            alt={post?.author.name}
+                            src={post?.author.avatar}
+                        />}
+                        title={post?.author.name}
+                        subheader={<DayJS format="DD.MM.YYYY" >{post?.updated_at}</DayJS>}
+                    />
+                        </div>
+                    <h4> {post?.text} </h4>
+                    </div>
+                </CardMUI >
+                <div>
+                    <br />
+                    <FavoriteBorderOutlinedIcon />
+                    {post?.likes.length}
+                    <br />
+                    Комментарии:
+                    {post?.comments.map(data => (data.text + ', '))}
+                    <br />
+                    Дата создания: <DayJS format="DD.MM.YYYY" >{post?.created_at}</DayJS>
+                </div>
+                {myUser?.name === post?.author.name && button}
+            </form >
+        </div>
     )
 };

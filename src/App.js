@@ -41,6 +41,7 @@ function App() {
   const [favorites, setFavorites] = useState(readLS('favorites') || []); // избранное
 
   useEffect(() => {
+    console.log(userToken)
     if (userToken) {
       setUserToken(userToken);
       api.getData('posts')
@@ -95,7 +96,6 @@ function App() {
                     style={{ display: 'flex', flexWrap: 'nowrap', justifyContent: 'center' }} />
                 </div>
               } />
-              <Route path="auth" element={<UserAuth />} />
               <Route path="posts/create" element={<CreatePost changePost={setPosts} />} />
               <Route path="posts/:itemId" element={<PostInfo changePost={setPosts} />} />
               <Route path="auth" element={<UserAuth setUserToken={setUserToken} />} />
