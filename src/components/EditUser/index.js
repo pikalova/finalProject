@@ -28,7 +28,7 @@ export const EditUser = () => {
             api.editUserImg({ avatar: userImg }, localStorage.getItem('token'))
             .then((data) => {
                 setMyUser(data);
-                navigate('/');
+                navigate(-1);
             })
             .catch(err => {
                 if (err == '400') {

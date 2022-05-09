@@ -10,6 +10,7 @@ import DayJS from 'react-dayjs';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Comment } from '../Comment';
+import picture from '../icon_comments.png';
 
 export const PostInfo = ({ changePost }) => {
     const api = useApi();
@@ -30,14 +31,18 @@ export const PostInfo = ({ changePost }) => {
     }
     useEffect(() => {
         api.getPosts(params.itemId)
-            .then((data) => setPost(data))
+            .then((data) => {
+                setPost(data);
+            })
             .catch((err) => alert(err));
     }, []);
 
     const addComment = () => {
-        console.log(params.itemId)
         api.addComment(params.itemId, comment)
-            .then((data) => console.log(data))
+            .then((data) => {
+                setPost(data);
+                setComment('');
+            })
             .catch((err) => alert(err));
     }
 
@@ -52,46 +57,46 @@ export const PostInfo = ({ changePost }) => {
                 {/* <div className='formAutor'>
                     <Avatar src={post?.author.avatar} /> <h1>{post?.author.name}</h1>
                 </div> */}
-                <h2> {post?.title} {myUser?.name === post?.author.name && button}</h2> 
-                
+                <h2> {post?.title} {myUser?.name === post?.author.name && button}</h2>
+
                 <Grid item container xs={16} className='grid' justifyContent='center'>
                     <Grid item xs={10}>
-                <CardMUI className='cardInfo' sx={{ height: 'auto', background: 'rgba(248, 240, 241, 0.987)' }}>
-                    <CardContent className='cardImg'>
-                        <img src={post?.image} width="500" alt="картинка" />
-                    </CardContent>
+                        <CardMUI className='cardInfo' sx={{ height: 'auto', background: 'rgba(248, 240, 241, 0.987)' }}>
+                            <CardContent className='cardImg'>
+                                <img src={post?.image} width="500" alt="картинка" />
+                            </CardContent>
 
-                    <Grid item container xs={16} >
-                        <Grid item xs={6}>
-                            <FavoriteBorderOutlinedIcon />
-                            {post?.likes.length}
+                            <Grid item container xs={16} >
+                                <Grid item xs={6}>
+                                    <FavoriteBorderOutlinedIcon />
+                                    {post?.likes.length}
+                                    <br />
+                                    <img src={picture} alt="picture" height='27' />{post?.comments.length}
+                                </Grid>
+                                <Grid item xs={6}>
 
-                        </Grid>
-                        <Grid item xs={6}>
-
-                            <CardHeader
-                                avatar={<Avatar
-                                    alt={post?.author.name}
-                                    src={post?.author.avatar}
-                                />}
-                                title={post?.author.name}
-                                subheader={<DayJS format="DD.MM.YYYY" >{post?.updated_at}</DayJS>}
-                            />
-                        </Grid>
-                        <Grid item xs={16}>
-                            <h4> {post?.text} </h4>
-                        </Grid>
+                                    <CardHeader
+                                        avatar={<Avatar
+                                            alt={post?.author.name}
+                                            src={post?.author.avatar}
+                                        />}
+                                        title={post?.author.name}
+                                        subheader={<DayJS format="DD.MM.YYYY" >{post?.updated_at}</DayJS>}
+                                    />
+                                </Grid>
+                                <Grid item xs={16}>
+                                    <h4> {post?.text} </h4>
+                                </Grid>
+                            </Grid>
+                        </CardMUI >
                     </Grid>
-                </CardMUI >
-</Grid>
                     <Grid item container xs={16}>
-
                         <Grid item xs={16}>
                             <Typography variant='h6'>
                                 Комментарии:
                             </Typography>
                             {
-                                post?.comments.map((comment) => <Comment comment={comment} key={comment._id} />)
+                                post?.comments.map((comment) => <Comment comment={comment} key={comment._id} post={post} setPost={setPost}/>)
                             }
                         </Grid>
                     </Grid>
@@ -105,6 +110,7 @@ export const PostInfo = ({ changePost }) => {
                             variant='outlined'
                             multiline
                             rows={4}
+                            value={comment}
                             onChange={({ target }) => {
                                 setComment(target.value);
                             }}
