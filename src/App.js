@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useApi } from './hooks/useApi'
 import { Routes, Route, useNavigate } from "react-router-dom";
 
+
 import './App.css';
 import './assets/pagination.css';
 
@@ -23,8 +24,17 @@ import AllPostsContext from './contexts/AllPostsContext';
 import UserContext from './contexts/UserContext';
 
 import Pagination from 'rc-pagination';
-import { padding } from '@mui/system';
+//import { padding } from '@mui/system';
 import { EditUser } from './components/EditUser';
+
+
+
+
+// import Background from './components/img2.jpg';
+// const sectionStyle = {
+//   backgroundImage: `url(${Background})`
+// };
+
 
 function App() {
   const api = useApi();
@@ -73,6 +83,7 @@ function App() {
   }, [searchQuery]);
 
   return (
+
     <div className="appContainer">
       <AllPostsContext.Provider value={{ posts, setPosts }}>
         <PostsContext.Provider value={{ postsOnPage, setPostsOnPage }}>
@@ -95,7 +106,6 @@ function App() {
                     style={{ display: 'flex', flexWrap: 'nowrap', justifyContent: 'center' }} />
                 </div>
               } />
-              <Route path="auth" element={<UserAuth />} />
               <Route path="posts/create" element={<CreatePost changePost={setPosts} />} />
               <Route path="posts/:itemId" element={<PostInfo changePost={setPosts} favorites={favorites} setFavorites={setFavorites}/>} />
               <Route path="auth" element={<UserAuth setUserToken={setUserToken} />} />
@@ -107,6 +117,7 @@ function App() {
       </AllPostsContext.Provider>
       <Footer />
     </div>
+
   );
 }
 

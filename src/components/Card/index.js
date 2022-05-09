@@ -75,7 +75,7 @@ export const Card = ({ post, isInFavorites, setFavorites }) => {
 
   return (
     <Stack>
-      <CardMUI sx={{ width: 350, height: 480, background: 'rgba(251, 247, 250, 0.97)' }} className='card'>
+      <CardMUI sx={{ width: 350, height: 525, background: 'rgba(251, 247, 250, 0.97)' }} className='card'>
         <CardContent>
           <Link to={`posts/${post._id}`} style={{ textDecoration: 'none' }}>
             <Typography gutterBottom variant="h6">
@@ -97,6 +97,11 @@ export const Card = ({ post, isInFavorites, setFavorites }) => {
               {post?.text}
             </Typography>
             <Button size="small">{post.author?.email}</Button>
+
+            <div className='tags'>
+              {post.tags.map((data) => (<span style={{ color: 'blue', backgroundColor: '#c4fccc' }}>{data}</span>))}
+            </div>
+
           </Link>
         </CardContent>
         <CardActions component="div">

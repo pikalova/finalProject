@@ -76,7 +76,7 @@ export const EditUser = () => {
 
             </Grid>
             <Grid item>
-                <Button onClick={handClick} variant='contained' size='small'>  Save</Button>
+                <Button onClick={handClick} variant='contained' size='small'>Сохранить</Button>
             </Grid>
         </Grid>
     )
