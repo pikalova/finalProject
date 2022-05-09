@@ -39,3 +39,17 @@
     justify-content: flex-end;
     width: 100%;
 }
+
+
+.add-comment{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 500px;
+}
+
+.grid{
+    padding: 50px;
+    align-content: center;
+    min-width: 500px;
+}
