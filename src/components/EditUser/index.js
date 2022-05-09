@@ -2,12 +2,14 @@ import { Button, Grid, TextField, Typography } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import UserContext from '../../contexts/UserContext'
 
-import api from '../../utils/api'
+//import api from '../../utils/api'
 import './index.css'
+
+import { useApi } from '../../hooks/useApi'
 
 export const EditUser = () => {
     const { myUser, setMyUser } = useContext(UserContext)
-
+    const api = useApi();
     const [userName, setUserName] = useState('');
     const [userAbout, setUserAbout] = useState('');
     const [userImg, setUserImg] = useState('');
@@ -25,11 +27,11 @@ export const EditUser = () => {
             console.log(data)
         })
             .catch(err => alert(err))
-        // api.editUserImg({ avatar: userImg })
-        //     .then((data) => {
-        //         console.log(data)
-        //     })
-        //     .catch(err => alert(err))
+        api.editUserImg({ avatar: userImg })
+            .then((data) => {
+                console.log(data)
+            })
+            .catch(err => alert(err))
     }
 
     return (

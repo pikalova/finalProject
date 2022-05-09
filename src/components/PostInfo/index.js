@@ -9,8 +9,42 @@ import UserContext from '../../contexts/UserContext';
 import DayJS from 'react-dayjs';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
-export const PostInfo = ({ changePost }) => {
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
+
+export const PostInfo = ({ changePost, favorites, setFavorites }) => {
     const api = useApi();
+
+    const { writeLS } = useLocalStorage();
+    const { removeLS } = useLocalStorage();
+
+    const addToFavorite = () => {
+        writeLS('favorites', post._id);
+        ++post.likes.length
+        setFavorites((prevState) => [...prevState, post._id]);
+        api.addLikes(post._id)
+            .then((added) => {
+                console.log('успешно добавил в избранное');
+            })
+            .catch(() => {
+                alert('Не удалось добавить')
+            });
+    };
+
+    const removeFavorite = () => {
+        removeLS('favorites', post._id);
+        --post.likes.length
+        setFavorites((prevState) => prevState.filter((postId) => post._id !== postId));
+        api.deleteLikes(post._id)
+            .then((remove) => {
+                console.log('успешно удалил из избранного');
+            })
+            .catch(() => {
+                alert('Не удалось удалить')
+            });
+    };
+
     const [post, setPost] = useState();
     const navigate = useNavigate();
     const params = useParams();
@@ -35,6 +69,8 @@ export const PostInfo = ({ changePost }) => {
     const { myUser, setMyUser } = useContext(UserContext);
     const button = <Button onClick={handleClik} variant="contained" color='primary' size='small'>Удалить пост</Button>
 
+    console.log(favorites?.includes(post?._id))
+
     return (
         <form className='form'>
             <div className='formAutor'>
@@ -58,6 +94,30 @@ export const PostInfo = ({ changePost }) => {
                 Дата создания: <DayJS format="DD.MM.YYYY" >{post?.created_at}</DayJS>
             </div>
             {myUser?.name == post?.author.name && button}
+
+            {/* {favorites?.includes(post?._id) ? (
+                <IconButton aria-label='add to favorites' onClick={removeFavorite}>
+                    <FavoriteIcon /> {post?.likes.length}
+                </IconButton>
+            ) : (
+                <IconButton aria-label='add to favorites' onClick={addToFavorite}>
+                    <FavoriteBorderOutlinedIcon /> {post?.likes.length}
+                </IconButton>
+            )} */}
+
+
+
+                <IconButton aria-label='add to favorites' onClick={removeFavorite}>
+                    <FavoriteIcon /> {post?.likes.length}
+                </IconButton>
+         
+                <IconButton aria-label='add to favorites' onClick={addToFavorite}>
+                    <FavoriteBorderOutlinedIcon /> {post?.likes.length}
+                </IconButton>
+          
+
+
+
         </form >
     )
 };

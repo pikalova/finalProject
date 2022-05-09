@@ -97,7 +97,7 @@ function App() {
               } />
               <Route path="auth" element={<UserAuth />} />
               <Route path="posts/create" element={<CreatePost changePost={setPosts} />} />
-              <Route path="posts/:itemId" element={<PostInfo changePost={setPosts} />} />
+              <Route path="posts/:itemId" element={<PostInfo changePost={setPosts} favorites={favorites} setFavorites={setFavorites}/>} />
               <Route path="auth" element={<UserAuth setUserToken={setUserToken} />} />
               <Route path="createuser" element={<CreateUser setUserToken={setUserToken} />} />
               <Route path='user/edit' element={<EditUser />}/>
