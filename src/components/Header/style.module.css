@@ -1,5 +1,5 @@
 .container {
-    height: 80px;
+    min-height: 80px;
     width: 100%;
     background:linear-gradient(90deg, rgb(241, 192, 253) 9%, rgb(155, 237, 240));
     padding: 12px 0;

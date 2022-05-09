@@ -43,8 +43,21 @@ class Api {
         return result;
     }
 
-    async deleteLikes(postId) {
-        const responce = await fetch(`${this._url}/posts/likes/${postId}`, {
+    async addComment(postId, data) {
+        const responce = await fetch(`${this._url}/posts/comments/${postId}`, {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${this._token}`
+            },
+            body: JSON.stringify({'text': data}),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
+
+    async deleteLikes(itemId) {
+        const responce = await fetch(`${this._url}/posts/likes/${itemId}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${this._token}`,
@@ -54,8 +67,19 @@ class Api {
         return result;
     }
 
-    async deletePost(postId) {
-        const responce = await fetch(`${this._url}/posts/${postId}`, {
+    async getPosts(itemId) {
+        const requestURL = itemId ? `${this._url}/posts/${itemId}` : `${this._url}/posts`
+        const responce = await fetch(requestURL, {
+            headers: {
+                authorization: `Bearer ${this._token}`
+            }
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
+    async deletePost(itemId) {
+        const responce = await fetch(`${this._url}/posts/${itemId}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this._token}`
@@ -77,7 +101,7 @@ class Api {
         return result;
     }
 
-    async editUserData( data, token){
+    async editUserData(data, token){
         const useToken = this.token || token;
         const responce = await fetch(`${this._url}/users/me`,{
             method: "PATCH",
@@ -101,6 +125,21 @@ class Api {
     const result = await onResponce(responce);
     return result;
    }
+
+   async editUserImg (avatar, token){
+    const useToken = this.token || token;
+    const responce = await fetch(`${this._url}/users/me/avatar`,{
+        method: "PATCH",
+        headers: {
+            authorization : `Bearer ${useToken}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(avatar),
+    });
+    const result = await onResponce(responce);
+    return result;
+   }
 }
 
 export default Api;
+

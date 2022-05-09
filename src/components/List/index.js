@@ -5,7 +5,6 @@ import './index.css';
 
 export const List = ({favorites, setFavorites}) => {
   const { postsOnPage } = useContext(PostsContext);
-
   return (
     <div className='list'>
       {postsOnPage && postsOnPage?.map((item) => (
