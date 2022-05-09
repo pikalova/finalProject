@@ -43,6 +43,19 @@ class Api {
         return result;
     }
 
+    async addComment(postId, data) {
+        const responce = await fetch(`${this._url}/posts/comments/${postId}`, {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${this._token}`
+            },
+            body: JSON.stringify({'text': data}),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
+
     async deleteLikes(itemId) {
         const responce = await fetch(`${this._url}/posts/likes/${itemId}`, {
             method: 'DELETE',

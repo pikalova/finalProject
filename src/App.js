@@ -41,7 +41,6 @@ function App() {
   const [favorites, setFavorites] = useState(readLS('favorites') || []); // избранное
 
   useEffect(() => {
-    console.log(userToken)
     if (userToken) {
       setUserToken(userToken);
       api.getData('posts')
