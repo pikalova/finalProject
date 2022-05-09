@@ -1,5 +1,6 @@
 import { Button, Grid, TextField, Typography } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import UserContext from '../../contexts/UserContext'
 
 //import api from '../../utils/api'
@@ -8,6 +9,8 @@ import './index.css'
 import { useApi } from '../../hooks/useApi'
 
 export const EditUser = () => {
+
+    const navigate = useNavigate();
     const { myUser, setMyUser } = useContext(UserContext)
     const api = useApi();
     const [userName, setUserName] = useState('');
@@ -23,8 +26,17 @@ export const EditUser = () => {
     }, [myUser])
 
     const handClick = () => {
-        api.editUserData({ name: userName, about: userAbout }).then((data) => {
-            console.log(data)
+        api.editUserData({ name: userName, about: userAbout }, localStorage.getItem('token')).then((data) => {
+            api.editUserImg({ avatar: userImg }, localStorage.getItem('token'))
+            .then((data) => {
+                setMyUser(data);
+                navigate(-1);
+            })
+            .catch(err => {
+                if (err == '400') {
+                    alert('Введите правильную ссылку на картинку.')
+                }
+            })
         })
             .catch(err => alert(err))
         api.editUserImg({ avatar: userImg })

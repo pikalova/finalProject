@@ -4,13 +4,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    transition: cubic-bezier(0, 0, 0, 1) 2s;
+
 }
 
-.form:hover {
-    box-shadow: 1px 3px 6px rgba(26, 23, 204, 0.778), 0px 8px 16px rgba(234, 10, 223, 0.443);
-    transition: cubic-bezier(0, 0, 0, 1) 2s;
-}
 
 .formAutor {
     display: flex;
@@ -47,10 +43,15 @@
     width: 100%;
 }
 
-.card__likes {
-    position: relative;
-    top: 70%;
-    left: 80%;
-    height: 10%;
-    width: 10%;
+.add-comment{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 500px;
+}
+
+.grid{
+    padding: 50px;
+    align-content: center;
+    min-width: 500px;
 }
