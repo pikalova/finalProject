@@ -67,6 +67,18 @@ class Api {
         return result;
     }
 
+    async resetPassword(data) {
+        const responce = await fetch(`${this._url}/password-reset`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
     async deleteLikes(itemId) {
         const responce = await fetch(`${this._url}/posts/likes/${itemId}`, {
             method: 'DELETE',
@@ -118,6 +130,29 @@ class Api {
             method: "PATCH",
             headers: {
                 authorization : `Bearer ${useToken}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+    async getUserData(token){
+        const useToken = this.token || token;
+        const responce = await fetch(`${this._url}/users/me`,{
+            method: "GET",
+            headers: {
+                authorization : `Bearer ${useToken}`,
+                "Content-Type": "application/json"
+            },
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+    async changeUserPassword(user, token, data){
+        const responce = await fetch(`${this._url}/password-reset/${user}/${token}`,{
+            method: "POST",
+            headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data),
