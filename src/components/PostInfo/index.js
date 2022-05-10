@@ -15,8 +15,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import { Comment } from '../Comment';
-import picture from '../icon_comments.png';
+//import { Comment } from '../Comment';
+//import picture from '../icon_comments.png';
 import Stack from '@mui/material/Stack';
 
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
@@ -151,6 +151,7 @@ export const PostInfo = ({ changePost, favorites, setFavorites }) => {
                         <TextField
                             fullWidth
                             label='Введите комментарий'
+                            style={{ backgroundColor: 'white' }}
                             variant='outlined'
                             multiline
                             rows={4}

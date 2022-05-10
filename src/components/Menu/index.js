@@ -9,7 +9,7 @@ import { sort } from '../../hooks/sort'
 import { useApi } from '../../hooks/useApi';
 import './index.css';
 
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 export const Menu = () => {
   const api = useApi();
@@ -85,25 +85,23 @@ export const Menu = () => {
       .catch((err) => console.log(err))
   }
 
-  const navigate = useNavigate()
-  const navigatToCreatePage = () => {
-    navigate('posts/create')
-  };
+  // const navigate = useNavigate()
+  // const navigatToCreatePage = () => {
+  //   navigate('posts/create')
+  // };
 
   return (
     <div className='menu'>
       <div className='sort'>
         <Button onClick={sortByDate}>{sortDate && <FilterListIcon className={('sort__icon-' + sortDate)} />}По дате</Button>
-        <Button onClick={sortByLikes}>{sortLikes && <FilterListIcon className={('sort__icon-' + sortLikes)} />}По популярности</Button>
-        <Button onClick={sortByTitle}>{sortTitle && <FilterListIcon className={('sort__icon-' + sortTitle)} />}По заголовку</Button>
-      </div>
-      <div>
-        <Button onClick={myPosts}>Мои посты</Button>
-        <Button onClick={favoritePosts}>Избранное</Button>
         <Button onClick={allPosts}>Все посты</Button>
+        <Button onClick={myPosts}>Мои посты</Button>
+        <Button onClick={sortByTitle}>{sortTitle && <FilterListIcon className={('sort__icon-' + sortTitle)} />}По заголовку</Button>
+        <Button onClick={sortByLikes}>{sortLikes && <FilterListIcon className={('sort__icon-' + sortLikes)} />}По популярности</Button>
+        <Button onClick={favoritePosts}>Избранное</Button>
       </div>
       <div>
-        <Button onClick={navigatToCreatePage} > + Добавить пост</Button>
+        {/* <Button onClick={navigatToCreatePage} > + Добавить пост</Button> */}
       </div>
     </div>
   )

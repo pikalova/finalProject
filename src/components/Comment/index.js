@@ -19,8 +19,8 @@ export const Comment = ({ comment, post, setPost }) => {
 
     const removeFavorite = () => {
         api.removeComment(post._id, comment._id)
-        .then((value) => setPost(value))
-        .catch((err) => console.log(err))
+            .then((value) => setPost(value))
+            .catch((err) => console.log(err))
     }
 
     return (
@@ -44,18 +44,13 @@ export const Comment = ({ comment, post, setPost }) => {
                             </Typography>
                         </Grid>
                         <Grid item xs={2}>
-                        {myUser && ( myUser._id === author._id) && 
-                        
-                        <IconButton aria-label='add to favorites' onClick={removeFavorite}>
-                            <DeleteForeverIcon/>
-                            </IconButton>
-}
+                            {myUser && (myUser._id === author._id) &&
+                                <IconButton aria-label='add to favorites' onClick={removeFavorite}>
+                                    <DeleteForeverIcon />
+                                </IconButton>
+                            }
                         </Grid>
-
-
-
                     </CardContent>
-
                 </Grid>
             </Card>)}
         </>
