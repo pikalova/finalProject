@@ -7,10 +7,10 @@ import { useApi } from '../../hooks/useApi'
 import './index.css'
 
 export const EditUser = () => {
-    const api = useApi();
     const navigate = useNavigate();
     const { myUser, setMyUser } = useContext(UserContext)
 
+    const api=useApi();
     const [userName, setUserName] = useState('');
     const [userAbout, setUserAbout] = useState('');
     const [userImg, setUserImg] = useState('');

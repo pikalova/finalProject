@@ -17,6 +17,8 @@ import { Search } from './components/Search';
 import { UserAndLikes } from './components/UserAndLikes';
 import { UserAuth } from './components/UserAuth';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { AboutUs } from './components/AboutUs';
+import { Contact } from './components/Contact';
 
 import PostsContext from './contexts/PostsContext';
 import AllPostsContext from './contexts/AllPostsContext';
@@ -100,6 +102,8 @@ function App() {
               <Route path="auth" element={<UserAuth setUserToken={setUserToken} />} />
               <Route path="createuser" element={<CreateUser setUserToken={setUserToken} />} />
               <Route path='user/edit' element={<EditUser />}/>
+              <Route path='about' element={<AboutUs />} />
+              <Route path='contact' element={<Contact />}/>
             </Routes>
           </UserContext.Provider>
         </PostsContext.Provider>

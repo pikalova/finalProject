@@ -113,7 +113,7 @@ class Api {
     }
 
     async editUserData(data, token){
-        const useToken = this.token || token;
+        const useToken = this.token || token || localStorage.token;
         const responce = await fetch(`${this._url}/users/me`,{
             method: "PATCH",
             headers: {
@@ -138,7 +138,7 @@ class Api {
    }
 
    async editUserImg (avatar, token){
-    const useToken = this.token || token;
+    const useToken = this.token || token || localStorage.token;
     const responce = await fetch(`${this._url}/users/me/avatar`,{
         method: "PATCH",
         headers: {
