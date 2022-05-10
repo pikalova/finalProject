@@ -3,7 +3,7 @@ import { Card } from '../Card'
 import PostsContext from '../../contexts/PostsContext'
 import './index.css';
 
-export const List = ({favorites, setFavorites}) => {
+export const List = ({ favorites, setFavorites }) => {
   const { postsOnPage } = useContext(PostsContext);
   return (
     <div className='list'>

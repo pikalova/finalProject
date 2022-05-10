@@ -115,10 +115,10 @@ class Api {
     async editUserData(data, token){
         const useToken = this.token || token || localStorage.token;
         const responce = await fetch(`${this._url}/users/me`,{
-            method: "PATCH",
+            method: 'PATCH',
             headers: {
                 authorization : `Bearer ${useToken}`,
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });

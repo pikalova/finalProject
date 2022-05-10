@@ -3,14 +3,15 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import UserContext from '../../contexts/UserContext'
 
-import { useApi } from '../../hooks/useApi'
+//import api from '../../utils/api'
 import './index.css'
 
+import { useApi } from '../../hooks/useApi'
+
 export const EditUser = () => {
+    const api = useApi();
     const navigate = useNavigate();
     const { myUser, setMyUser } = useContext(UserContext)
-
-    const api=useApi();
     const [userName, setUserName] = useState('');
     const [userAbout, setUserAbout] = useState('');
     const [userImg, setUserImg] = useState('');
@@ -26,18 +27,22 @@ export const EditUser = () => {
     const handClick = () => {
         api.editUserData({ name: userName, about: userAbout }, localStorage.getItem('token')).then((data) => {
             api.editUserImg({ avatar: userImg }, localStorage.getItem('token'))
-            .then((data) => {
-                setMyUser(data);
-                navigate(-1);
-            })
-            .catch(err => {
-                if (err == '400') {
-                    alert('Введите правильную ссылку на картинку.')
-                }
-            })
+                .then((data) => {
+                    setMyUser(data);
+                    navigate(-1);
+                })
+                .catch(err => {
+                    if (err == '400') {
+                        alert('Введите правильную ссылку на картинку.')
+                    }
+                })
         })
             .catch(err => alert(err))
-        
+        api.editUserImg({ avatar: userImg })
+            .then((data) => {
+                console.log(data)
+            })
+            .catch(err => alert(err))
     }
 
     return (
@@ -82,7 +87,7 @@ export const EditUser = () => {
 
             </Grid>
             <Grid item>
-                <Button onClick={handClick} variant='contained' size='small'>  Save</Button>
+                <Button onClick={handClick} variant='contained' size='small'>Сохранить</Button>
             </Grid>
         </Grid>
     )

@@ -1,11 +1,11 @@
-.boxAbout{
+.boxAbout {
     /* background: linear-gradient(45deg, rgb(255, 255, 255) 42%, rgb(211, 250, 251) 72%); */
     /* box-shadow: 4px 4px 14px 15px rgba(174, 220, 255, 0.2); */
     width: 50%;
     height: 70%;
 }
 
-.textAbout{
+.textAbout {
     position: relative;
     top: 20px;
     font-family: Verdana, sans-serif;
@@ -13,9 +13,9 @@
     text-align: justify;
 }
 
-.imgAbout{
+.imgAbout {
     position: relative;
     width: 50%;
     height: 60%;
-    left:370px;
+    left: 370px;
 }
