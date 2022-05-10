@@ -14,7 +14,7 @@ export const Search = ({ handleChange }) => {
   }
 
   return (
-    <div className='container'>
+    <div className='containerS'>
       <input type='text'
         className='searching'
         onChange={(e) => setTextInSearch(e.target.value)}
