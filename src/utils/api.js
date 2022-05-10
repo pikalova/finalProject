@@ -125,12 +125,12 @@ class Api {
     }
 
     async editUserData(data, token){
-        const useToken = this.token || token;
+        const useToken = this.token || token || localStorage.token;
         const responce = await fetch(`${this._url}/users/me`,{
-            method: "PATCH",
+            method: 'PATCH',
             headers: {
                 authorization : `Bearer ${useToken}`,
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
@@ -173,7 +173,7 @@ class Api {
    }
 
    async editUserImg (avatar, token){
-    const useToken = this.token || token;
+    const useToken = this.token || token || localStorage.token;
     const responce = await fetch(`${this._url}/users/me/avatar`,{
         method: "PATCH",
         headers: {

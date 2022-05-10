@@ -1,8 +1,8 @@
 import React from 'react';
 import { useApi } from '../../hooks/useApi';
-import { useNavigate } from 'react-router-dom';
-import { Grid } from '@mui/material';
-import { TextField, Button } from '@mui/material';
+import { useNavigate, Link } from 'react-router-dom';
+import { TextField, Button, Grid } from '@mui/material';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 export const CreatePost = ({ changePost }) => {
     const navigate = useNavigate();
@@ -26,15 +26,18 @@ export const CreatePost = ({ changePost }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Grid container flexDirection='column' alignItems='center' spacing='20'>
+            <Grid container flexDirection='column' alignItems='center' spacing='15'>
                 <Grid item>
-                    <TextField fullWidth label='Название (обязательное)' name='title' variant='outlined' />
+                    <h2>Создайте новый пост</h2>
                 </Grid>
                 <Grid item>
-                    <TextField fullWidth label='Описание (обязательное)' name='text' variant='outlined' />
+                    <TextField fullWidth label='Название' name='title' variant='outlined' style={{ width: '15em' }} />
                 </Grid>
                 <Grid item>
-                    <TextField fullWidth label='Картинка' name='image' variant='outlined' />
+                    <TextField fullWidth label='Описание' name='text' variant='outlined' style={{ width: '15em' }} />
+                </Grid>
+                <Grid item>
+                    <TextField fullWidth label='Картинка https://...' name='image' variant='outlined' style={{ width: '15em' }} />
                 </Grid>
                 <Grid item>
                     <Button type='submit' variant='contained' color='secondary' size='small'>
@@ -42,6 +45,7 @@ export const CreatePost = ({ changePost }) => {
                     </Button>
                 </Grid>
             </Grid>
+            <Link to='/'><Button variant="contained" color='primary' size='small' style={{ margin: '20px' }}><KeyboardBackspaceIcon />назад</Button></Link>
         </form >
     )
 }
