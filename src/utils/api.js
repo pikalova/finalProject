@@ -32,6 +32,19 @@ class Api {
         return result;
     }
 
+    async editPost(postId, data) {
+        const responce = await fetch(`${this._url}/posts/${postId}`, {
+            method: 'PATCH',
+            headers: {
+                authorization: `Bearer ${this._token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
     async addLikes(postId) {
         const responce = await fetch(`${this._url}/posts/likes/${postId}`, {
             method: 'PUT',
@@ -62,6 +75,18 @@ class Api {
             headers: {
                 authorization: `Bearer ${this._token}`,
             },
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
+    async resetPassword(data) {
+        const responce = await fetch(`${this._url}/password-reset`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
         });
         const result = await onResponce(responce);
         return result;
@@ -119,6 +144,29 @@ class Api {
             headers: {
                 authorization : `Bearer ${useToken}`,
                 'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+    async getUserData(token){
+        const useToken = this.token || token;
+        const responce = await fetch(`${this._url}/users/me`,{
+            method: "GET",
+            headers: {
+                authorization : `Bearer ${useToken}`,
+                "Content-Type": "application/json"
+            },
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+    async changeUserPassword(user, token, data){
+        const responce = await fetch(`${this._url}/password-reset/${user}/${token}`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(data),
         });

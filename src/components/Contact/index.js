@@ -52,6 +52,7 @@ export const Contact= () => {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Пагинация <br/>
+          Сортировка <br/>
           Авторизация и регистрация пользователя <br/>
         </Typography>
       </CardContent>

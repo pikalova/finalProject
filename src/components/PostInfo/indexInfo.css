@@ -4,9 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-
 }
-
 
 .formAutor {
     display: flex;
@@ -17,10 +15,27 @@
 .cardInfo {
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 20px;
     justify-content: center;
     align-items: center;
-    justify-content: flex-start;
+    padding-top: 20px;
+}
+
+.card__title{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card__comment{
+    padding: 0 !important;
+}
+
+.comments {
+    font-size: 135%;
 }
 
 .card__about {

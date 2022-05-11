@@ -40,7 +40,6 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');// поиск/запрос на бэк по постам
   const [myUser, setMyUser] = useState();
   const [userToken, setUserToken] = useState(readLS('token'));
-  //const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
   const [favorites, setFavorites] = useState(readLS('favorites') || []); // избранное
 
   useEffect(() => {

@@ -10,12 +10,18 @@ export const CreatePost = ({ changePost }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const {
-            target: { title, text, image }
+            target: { title, text, image, tags : { value } }
         } = event;
+        const editTags = value.split('#').filter((item) => {
+            if (item != '') {
+                return item.trim();
+            }
+            });
         api.addPost({
             title: title.value,
             text: text.value,
             image: image.value,
+            tags: editTags,
         })
             .then((data) => {
                 changePost((prevState) => [data, ...prevState]);
@@ -31,13 +37,24 @@ export const CreatePost = ({ changePost }) => {
                     <h2>Создайте новый пост</h2>
                 </Grid>
                 <Grid item>
-                    <TextField fullWidth label='Название' name='title' variant='outlined' style={{ width: '15em' }} />
+                    <TextField fullWidth multiline required label='Название' name='title' variant='outlined' style={{ width: '15em' }} />
                 </Grid>
                 <Grid item>
-                    <TextField fullWidth label='Описание' name='text' variant='outlined' style={{ width: '15em' }} />
+                    <TextField fullWidth required label='Описание' name='text' variant='outlined' style={{ width: '15em' }} />
                 </Grid>
                 <Grid item>
-                    <TextField fullWidth label='Картинка https://...' name='image' variant='outlined' style={{ width: '15em' }} />
+                    <TextField fullWidth required label='Картинка https://...' name='image' variant='outlined' style={{ width: '15em' }} />
+                </Grid>
+                <Grid item>
+                <TextField
+                    inputProps={{ pattern: "^(#{1}.{1,}){1,}$", title:'Tags should contain #, e.g. #home #aboutme' }}
+                    name="tags"
+                    label="Tags separated by #"
+                    variant="outlined"
+                    style={{ width: '15em' }}
+                    fullWidth
+                    required
+                />
                 </Grid>
                 <Grid item>
                     <Button type='submit' variant='contained' color='secondary' size='small'>
