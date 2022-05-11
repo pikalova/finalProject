@@ -40,10 +40,10 @@ export const CreatePost = ({ changePost }) => {
                     <TextField fullWidth multiline required label='Название' name='title' variant='outlined' style={{ width: '15em' }} />
                 </Grid>
                 <Grid item>
-                    <TextField fullWidth required label='Описание' name='text' variant='outlined' style={{ width: '15em' }} />
+                    <TextField fullWidth multiline required label='Описание' name='text' variant='outlined' style={{ width: '15em' }} />
                 </Grid>
                 <Grid item>
-                    <TextField fullWidth required label='Картинка https://...' name='image' variant='outlined' style={{ width: '15em' }} />
+                    <TextField fullWidth multiline required label='Картинка https://...' name='image' variant='outlined' style={{ width: '15em' }} />
                 </Grid>
                 <Grid item>
                 <TextField
