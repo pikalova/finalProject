@@ -17,11 +17,15 @@ export const Footer = () => {
 const navigateContact = () => {
   navigate('contact');
 }
+
+const navigateInfo = () => {
+  navigate('info');
+}
   
   const buttons = [
     <Button onClick={navigateAboutUs} key="one">О проекте</Button>,
     <Button onClick={navigateContact} key="two">О нас</Button>,
-    <Button key="three">Полезная информация</Button>,
+    <Button key="three" onClick={navigateInfo}>Полезная информация</Button>,
   ];
   return (
     <Box
