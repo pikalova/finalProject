@@ -21,6 +21,7 @@ import { UserAuth } from './components/UserAuth';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { AboutUs } from './components/AboutUs';
 import { Contact } from './components/Contact';
+import { DopInfo } from './components/DopInfo';
 
 import PostsContext from './contexts/PostsContext';
 import AllPostsContext from './contexts/AllPostsContext';
@@ -108,6 +109,7 @@ function App() {
               <Route path='user/edit' element={<EditUser />} />
               <Route path='about' element={<AboutUs />} />
               <Route path='contact' element={<Contact />} />
+              <Route path='info' element={<DopInfo />} />
             </Routes>
           </UserContext.Provider>
         </PostsContext.Provider>

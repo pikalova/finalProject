@@ -29,9 +29,9 @@ export const UserAndLikes = () => {
             {myUser &&
                 <div  className='userContainer'>
                     
-                   
-                    <Chip avatar={<Avatar src={myUser?.avatar}></Avatar>} label={myUser?.name} onClick={navigateEditUser} color="info" variant='outlined' ></Chip>
-                    <Chip onClick={logout} icon={<LogoutIcon />} label='Выйти' color="info" variant='outlined'className='logOut' ></Chip>
+                   <div className='chipOne'><Chip avatar={<Avatar src={myUser?.avatar}></Avatar>} label={myUser?.name} onClick={navigateEditUser} color="info" variant='outlined' ></Chip></div>
+                    
+                   <div className='chipTwo'> <Chip onClick={logout} icon={<LogoutIcon />} label='Выйти' color="info" variant='outlined'className='logOut' ></Chip></div>
                   
                 </div>
             }

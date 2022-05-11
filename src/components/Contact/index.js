@@ -7,6 +7,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import logo from '../../assets/svg/telegramm.png'
+import ivan from '../../assets/svg/Ivan.png'
+import natalya from '../../assets/svg/Natalya.png'
+import svetlana from '../../assets/svg/Svetlana.png'
+
 import "./index.css"
 
 
@@ -17,9 +21,10 @@ export const Contact= () => {
     <div className='card1'>
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
+        className='ivan'
         component="img"
-        height="140"
-        src='https://srisovki.one/wp-content/uploads/2021/05/1599558438_6.jpg'
+        height="200"
+        src={ivan}
         alt="Ivan"
       />
       <CardContent>
@@ -42,9 +47,9 @@ export const Contact= () => {
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
-        height="140"
-        src='https://srisovki.one/wp-content/uploads/2021/05/1599558438_6.jpg'
-        alt="Ivan"
+        height="200"
+        src={natalya}
+        alt="Natalya"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -67,9 +72,9 @@ export const Contact= () => {
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
-        height="140"
-        src='https://srisovki.one/wp-content/uploads/2021/05/1599558438_6.jpg'
-        alt="Ivan"
+        height="200"
+        src={svetlana}
+        alt="Svetlana"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
