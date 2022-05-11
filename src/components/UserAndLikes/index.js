@@ -25,13 +25,13 @@ export const UserAndLikes = () => {
     }
 
     return (
-        <div className='userContainer'>
+        <div>
             {myUser &&
-                <div>
+                <div  className='userContainer'>
                     
                    
                     <Chip avatar={<Avatar src={myUser?.avatar}></Avatar>} label={myUser?.name} onClick={navigateEditUser} color="info" variant='outlined' ></Chip>
-                    <Chip onClick={logout} icon={<LogoutIcon />} label='LogOut' color="info" variant='outlined'className='logOut' ></Chip>
+                    <Chip onClick={logout} icon={<LogoutIcon />} label='Выйти' color="info" variant='outlined'className='logOut' ></Chip>
                   
                 </div>
             }

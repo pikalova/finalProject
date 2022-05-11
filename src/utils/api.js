@@ -32,6 +32,19 @@ class Api {
         return result;
     }
 
+    async editPost(postId, data) {
+        const responce = await fetch(`${this._url}/posts/${postId}`, {
+            method: 'PATCH',
+            headers: {
+                authorization: `Bearer ${this._token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
     async addLikes(postId) {
         const responce = await fetch(`${this._url}/posts/likes/${postId}`, {
             method: 'PUT',
@@ -47,14 +60,37 @@ class Api {
         const responce = await fetch(`${this._url}/posts/comments/${postId}`, {
             method: 'POST',
             headers: {
-                authorization: `Bearer ${this._token}`
+                authorization: `Bearer ${this._token}`,
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({'text': data}),
+            body: JSON.stringify({"text": data}),
         });
         const result = await onResponce(responce);
         return result;
     }
 
+    async removeComment(postId, commentId) {
+        const responce = await fetch(`${this._url}/posts/comments/${postId}/${commentId}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${this._token}`,
+            },
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
+    async resetPassword(data) {
+        const responce = await fetch(`${this._url}/password-reset`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
 
     async deleteLikes(itemId) {
         const responce = await fetch(`${this._url}/posts/likes/${itemId}`, {
@@ -102,11 +138,34 @@ class Api {
     }
 
     async editUserData(data, token){
-        const useToken = this.token || token;
+        const useToken = this.token || token || localStorage.token;
         const responce = await fetch(`${this._url}/users/me`,{
-            method: "PATCH",
+            method: 'PATCH',
             headers: {
                 authorization : `Bearer ${useToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+    async getUserData(token){
+        const useToken = this.token || token;
+        const responce = await fetch(`${this._url}/users/me`,{
+            method: "GET",
+            headers: {
+                authorization : `Bearer ${useToken}`,
+                "Content-Type": "application/json"
+            },
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+    async changeUserPassword(user, token, data){
+        const responce = await fetch(`${this._url}/password-reset/${user}/${token}`,{
+            method: "POST",
+            headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data),
@@ -127,7 +186,7 @@ class Api {
    }
 
    async editUserImg (avatar, token){
-    const useToken = this.token || token;
+    const useToken = this.token || token || localStorage.token;
     const responce = await fetch(`${this._url}/users/me/avatar`,{
         method: "PATCH",
         headers: {
