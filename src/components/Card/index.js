@@ -98,7 +98,7 @@ export const Card = ({ post, isInFavorites, setFavorites }) => {
             </Typography>
             <Button size="small">{post.author?.email}</Button>
             <div className='tags'>
-              {post.tags.map((data, index) => (<span style={{ color: 'blue', backgroundColor: '#c4fccc' }} key={index}>{data}</span>))}
+              {post?.tags.map((data, index) => (<span style={{ color: 'blue', backgroundColor: '#c4fccc' }} key={index}>{data}</span>))}
             </div>
           </Link>
         </CardContent>

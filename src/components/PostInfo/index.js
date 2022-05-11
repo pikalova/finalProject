@@ -22,7 +22,7 @@ import DeleteForever from '@mui/icons-material/DeleteForever';
 import { Comment } from '../Comment';
 import { AlertDialog } from '../AlertDialog';
 import Stack from '@mui/material/Stack';
-
+import AllPostsContext from '../../contexts/AllPostsContext';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 
@@ -32,7 +32,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export const PostInfo = ({ changePost, favorites, setFavorites }) => {
     const api = useApi();
-
+    const { setPosts } = useContext(AllPostsContext);
     //для удаления поста
     const { myUser, setMyUser } = useContext(UserContext);
     const { writeLS, removeLS } = useLocalStorage();
@@ -110,6 +110,15 @@ export const PostInfo = ({ changePost, favorites, setFavorites }) => {
         api.addComment(params.itemId, comment)
             .then((data) => {
                 setPost(data);
+                changePost((prevState) => {
+                    return prevState.map((post) => {
+                        if (post._id === params.itemId){
+                            return data;
+                        } else {
+                            return post;
+                        }
+                    });
+                })
                 setComment('');
             })
             .catch((err) => alert(err));
@@ -153,7 +162,7 @@ export const PostInfo = ({ changePost, favorites, setFavorites }) => {
                                 <h4> {post?.text} </h4>
                             </div>
                             <div className='tags'>
-                                {post.tags.map((data, index) => (<span style={{ color: 'blue', backgroundColor: '#c4fccc' }} key={index}>{data}</span>))}
+                                {post?.tags.map((data, index) => (<span style={{ color: 'blue', backgroundColor: '#c4fccc' }} key={index}>{data}</span>))}
                             </div>
                             <span className='card__likes'>
                                 {favorites?.includes(post?._id) ? (
