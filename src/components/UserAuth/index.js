@@ -67,7 +67,6 @@ export const UserAuth = ({ setUserToken }) => {
                 api.changeUserPassword(data._id, newToken, {"password": newPassword}) 
                 .then((data) => {
                     setOpen(false);
-                    console.log(data)
                 })
                 .catch((err) => {
                     switch (err) {

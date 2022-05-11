@@ -32,6 +32,19 @@ class Api {
         return result;
     }
 
+    async editPost(postId, data) {
+        const responce = await fetch(`${this._url}/posts/${postId}`, {
+            method: 'PATCH',
+            headers: {
+                authorization: `Bearer ${this._token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await onResponce(responce);
+        return result;
+    }
+
     async addLikes(postId) {
         const responce = await fetch(`${this._url}/posts/likes/${postId}`, {
             method: 'PUT',
